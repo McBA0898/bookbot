@@ -1,7 +1,12 @@
+import sys
 from stats import count_words
 
 def main():
-    book_path = "books/frankenstein.txt"
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
+    book_path = sys.argv[1]
     text = get_book_text(book_path)
     num_words = count_words(text)
     character_counts = count_characters(text)
@@ -28,7 +33,7 @@ def print_report(book_path, num_words, character_counts):
     print(f"{num_words} words found in the document")
     sorted_characters = sorted(character_counts.items(), key=lambda item:item[1], reverse=True)
     for char, count in sorted_characters:
-        print(f"The '{char}' character was found {count} times")
+        print(f"{char}: {count}")
     print("--- End Report ---")
 
 
